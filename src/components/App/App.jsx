@@ -1,5 +1,6 @@
-import { Component, useState, useEffect } from 'react';
-import { nanoid } from 'nanoid';
+// import { Component, useState, useEffect } from 'react';
+// import { useSelector } from 'react-redux';
+// import { getAllTodos } from 'redux/todoSlice/todoSelectors';
 
 import {
   Container,
@@ -11,55 +12,32 @@ import {
   Text,
   Todo,
 } from 'components';
+import { TodoList } from 'components/TodoList/TodoList';
 
 export const App = () => {
-  const [todos, setTodos] = useState(() => {
-    return JSON.parse(window.localStorage.getItem('todos')) ?? [];
-  });
+  // const [todos, setTodos] = useState(() => {
+  //   return JSON.parse(window.localStorage.getItem('todos')) ?? [];
+  // });
 
-  useEffect(() => {
-    window.localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos]);
+  // const storeTodos = useSelector(getAllTodos);
+  // console.log(storeTodos);
 
-  const addTodo = text => {
-    const todo = {
-      id: nanoid(),
-      text,
-    };
+  // useEffect(() => {
+  //   window.localStorage.setItem('todos', JSON.stringify(todos));
+  // }, [todos]);
 
-    setTodos(prevState => [...prevState, todo]);
-  };
-
-  const handleSubmit = data => {
-    addTodo(data);
-  };
-
-  const deleteTodo = id => {
-    setTodos(prevState => prevState.filter(todo => todo.id !== id));
-  };
+  // const deleteTodo = id => {
+  //   setTodos(prevState => prevState.filter(todo => todo.id !== id));
+  // };
 
   return (
     <>
       <Header />
       <Section>
         <Container>
-          <SearchForm onSubmit={handleSubmit} />
-          {todos.length === 0 && (
-            <Text textAlign="center">There are no any todos ... </Text>
-          )}
-          <Grid>
-            {todos.length > 0 &&
-              todos.map((todo, index) => (
-                <GridItem key={todo.id}>
-                  <Todo
-                    id={todo.id}
-                    text={todo.text}
-                    counter={index + 1}
-                    onClick={deleteTodo}
-                  />
-                </GridItem>
-              ))}
-          </Grid>
+          <SearchForm />
+
+          <TodoList />
         </Container>
       </Section>
     </>
